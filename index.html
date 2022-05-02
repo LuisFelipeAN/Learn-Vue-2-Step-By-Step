@@ -2,40 +2,15 @@
 <html>
 <head>
     <title></title>
-   
 </head>
 <body>
     <div id="root">
-        <h1>All Taks</h1>
-        <ul>
-            <li v-for="task in tasks" v-text="task.description"></li>
-        </ul>
-        <h1>Incomplete Taks</h1>
-        <ul>
-            <li v-for="task in incompleteTasks" v-text="task.description"> </li>
-        </ul>
+        <task>Task 1</task>
+        <task>Task 2</task>
+        <task>Task 3</task>
     </div>
     <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"> </script>
-    <script>
-        const app = new Vue({
-            el:'#root',
-            data: {
-                tasks:[
-                    { description: 'Task 1', completed: true},
-                    { description: 'Task 2', completed: false},
-                    { description: 'Task 3', completed: true},
-                    { description: 'Task 4', completed: false},
-                    { description: 'Task 5', completed: true},
-                ]
-                
-            },
-            computed: {
-                incompleteTasks: function(){
-                    return this.tasks.filter(task=>!task.completed);
-                },
-            }
-        })
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
 
