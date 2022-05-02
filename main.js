@@ -1,17 +1,25 @@
-Vue.component('task-list',{
-    template:'<div><task v-for="task in tasks">{{task.description}}</task></div>',
+Vue.component('message',{
+    props: ['title', 'body'],
+    template:`<article class="message" v-show="isVisible">
+    <div class="message-header">
+      <p>{{title}}</p>
+      <button class="delete" aria-label="delete" @click="hideModal"></button>
+    </div>
+    <div class="message-body">
+        {{body}}
+    </div>
+  </article>`,
+  data(){
+      return{
+          isVisible: true
+      }
+  },
+  methods: {
+      hideModal: function(){
+          this.isVisible=false;
+      }
+  }
 
-    data(){
-        return{
-            tasks: [
-                {description: 'Task 1', completed: true},
-                {description: 'Task 2', completed: false},
-                {description: 'Task 3', completed: true},
-                {description: 'Task 4', completed: false},
-                {description: 'Task 5', completed: true},
-            ]
-        }
-    }
 
 })
 Vue.component('task',{
