@@ -7,6 +7,7 @@
 <body>
     @include('projects.list')
     <div id="app">
+        <example></example>
         <form action="/projects" method="POST" @submit.prevent="onSubmit"  @keydown="form.errors.clear($event.target.name)">
             <div class="control">
                 <label for="descnameription" class="label">Name:</label>
@@ -24,8 +25,7 @@
             </div>
         </form>
     </div>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"> </script>
+    <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>
