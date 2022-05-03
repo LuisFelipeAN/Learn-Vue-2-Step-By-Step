@@ -40,27 +40,38 @@ class Form{
         for(let field in this.originalData){
             this[field]='';
         }
+        this.errors.clear();
+
     }
 
     data(){
-        let data = Object.assign({},this);
-        delete data.originalData;
-        delete data.errors;
+        let data={};
+        for(let property in this.originalData){
+            data[property]=this[property];
+        }
         return data;
     }
+
     submit(reuquestType,url){
-        axios[reuquestType](url,this.data())
-        .then(this.onSuccess.bind(this))
-        .catch(this.onFail.bind(this));
+        return new Promise((resolve,reject)=>{
+            axios[reuquestType](url,this.data())
+            .then(response=>{
+                this.onSuccess(response.data);
+                resolve(response.data);
+            })
+            .catch(error=>{
+                this.onFail(error.response.data);
+                reject(error.response.data);
+            });
+        })
     }
 
-    onSuccess(response){
-        alert(response.data.message);
-        this.errors.clear();
+    onSuccess(data){
+        alert(data.message);
         this.reset();
     }
-    onFail(error){
-        this.errors.record( error.response.data.errors);
+    onFail(data){
+        this.errors.record(data.errors);
     }
 }
 new Vue({
@@ -73,7 +84,7 @@ new Vue({
     },
     methods: {
         onSubmit: function(){
-           this.form.submit('post','/projects')
+           this.form.submit('post','/projects').then(data=> console.log(data)).catch(error=> console.log(error))
         },
     }
 })
